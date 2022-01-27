@@ -6,6 +6,7 @@ public class Code09_FindOneLessValueIndex {
     if (arr == null || arr.length == 0) {
       return -1; // no exist
     }
+
     if (arr.length == 1 || arr[0] < arr[1]) {
       return 0;
     }
@@ -17,9 +18,11 @@ public class Code09_FindOneLessValueIndex {
     int mid = 0;
     while (left < right) {
       mid = (left + right) / 2;
+      // mid 的值比左边的大：左边有极小值
       if (arr[mid] > arr[mid - 1]) {
         right = mid - 1;
       } else if (arr[mid] > arr[mid + 1]) {
+        // mid 的值比右边的大 右边有极小值
         left = mid + 1;
       } else {
         return mid;
