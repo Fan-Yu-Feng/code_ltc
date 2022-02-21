@@ -1,4 +1,4 @@
-package com.fyf.ltc;
+package com.fyf.ltc.lc_100;
 
 import java.util.LinkedList;
 import java.util.List;
