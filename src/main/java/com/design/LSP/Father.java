@@ -1,4 +1,4 @@
-package com.design;
+package com.design.LSP;
 
 import java.util.Collection;
 import java.util.HashMap;

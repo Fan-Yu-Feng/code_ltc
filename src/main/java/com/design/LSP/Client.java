@@ -1,11 +1,13 @@
-package com.design;
+package com.design.LSP;
 
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
 /**
- * @author FYF @Description
+ * Description 里式替换原则：Liskov Substitution Principle
+ *
+ * @author FYF
  * @date 2022/4/28
  */
 public class Client {
