@@ -1,7 +1,7 @@
-package com.design.DIP.service.impl;
+package com.design.principle.DIP.service.impl;
 
-import com.design.DIP.service.ICar;
-import com.design.DIP.service.IDriver;
+import com.design.principle.DIP.service.ICar;
+import com.design.principle.DIP.service.IDriver;
 
 /**
  * @author FYF @Description 司机类

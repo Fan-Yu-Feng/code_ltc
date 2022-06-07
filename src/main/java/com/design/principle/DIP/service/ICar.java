@@ -1,4 +1,4 @@
-package com.design.DIP.service;
+package com.design.principle.DIP.service;
 
 /**
  * @author FYF @Description 汽车接口

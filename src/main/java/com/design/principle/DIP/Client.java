@@ -1,8 +1,8 @@
-package com.design.DIP;
+package com.design.principle.DIP;
 
-import com.design.DIP.service.impl.BMW;
-import com.design.DIP.service.impl.Benz;
-import com.design.DIP.service.impl.Driver;
+import com.design.principle.DIP.service.impl.BMW;
+import com.design.principle.DIP.service.impl.Benz;
+import com.design.principle.DIP.service.impl.Driver;
 
 /**
  * @Description （Dependence Inversion Principle,DIP） 依赖倒置原则
@@ -15,7 +15,7 @@ import com.design.DIP.service.impl.Driver;
 public class Client {
   public static void main(String[] args) {
     Benz benz = new Benz();
-    Driver driver = new Driver();
+    Driver driver = new Driver(benz);
     driver.driver(benz);
     BMW bmw = new BMW();
     driver.driver(bmw);

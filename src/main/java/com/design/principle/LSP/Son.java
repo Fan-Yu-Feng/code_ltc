@@ -1,4 +1,4 @@
-package com.design.LSP;
+package com.design.principle.LSP;
 
 import java.util.Collection;
 import java.util.Map;

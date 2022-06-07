@@ -1,6 +1,6 @@
-package com.design.DIP.service.impl;
+package com.design.principle.DIP.service.impl;
 
-import com.design.DIP.service.ICar;
+import com.design.principle.DIP.service.ICar;
 
 /**
  * @author FYF @Description 宝马车
