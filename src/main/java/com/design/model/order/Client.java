@@ -11,8 +11,12 @@ import com.design.model.order.reciver.ConcertReceiver1;
 import com.design.model.order.reciver.Receiver;
 
 /**
- * @author FYF @Description 场景类
- * @date 2022/7/8
+ * @Description
+ *
+ * @author ThinkPad
+ * @date 2022/07/11 12:00
+ * @param null
+ * @return
  */
 public class Client {
   public static void main(String[] args) {
