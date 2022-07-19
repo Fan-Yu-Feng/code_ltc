@@ -27,6 +27,12 @@ public class NvWa {
 		Human blackHuman = YinYangLu.createHuman(BlackHuman.class);
 		blackHuman.getColor();
 		blackHuman.talk();
+		
+		
+		System.out.println("------新增yellow人类工厂");
+		Human yellowHuman1 = new YellowHumanFactory().createHuman();
+		yellowHuman1.talk();
+		yellowHuman1.getColor();
 	}
 	
 }

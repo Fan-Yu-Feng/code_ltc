@@ -10,8 +10,6 @@ public class HumanFactory extends AbstractHumanFactory {
 	
 	/**
 	 * 传入参数为Class 且为 Human 的实现类
-	 *
-	 * @param
 	 */
 	@Override
 	public <T extends Human> T createHuman(Class<T> c) {
@@ -24,5 +22,13 @@ public class HumanFactory extends AbstractHumanFactory {
 		}
 		
 		return (T) human;
+	}
+	
+	/**
+	 * 由颜色人类工厂自己的实现类
+	 */
+	@Override
+	public Human createHuman() {
+		return null;
 	}
 }

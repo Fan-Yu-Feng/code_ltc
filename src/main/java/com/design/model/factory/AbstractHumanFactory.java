@@ -11,12 +11,11 @@ import com.design.model.factory.human.Human;
 public abstract class AbstractHumanFactory {
 	/**
 	 * 传入参数为Class 且为 Human 的实现类
-	 *
-	 * @param C
-	 * @param <T>
-	 *
-	 * @return
 	 */
 	public abstract <T extends Human> T createHuman(Class<T> C);
 	
+	/**
+	 * 由颜色人类工厂自己的实现类
+	 */
+	public abstract Human createHuman();
 }
