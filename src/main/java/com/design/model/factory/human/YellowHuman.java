@@ -14,4 +14,9 @@ public class YellowHuman implements Human {
 	public void talk() {
 		System.out.println("黄人会说话，汉子。");
 	}
+	
+	@Override
+	public void getSex() {
+	
+	}
 }

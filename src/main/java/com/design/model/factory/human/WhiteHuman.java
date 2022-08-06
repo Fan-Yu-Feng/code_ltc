@@ -14,4 +14,9 @@ public class WhiteHuman implements Human {
 	public void talk() {
 		System.out.println("白人会说话，汉子。");
 	}
+	
+	@Override
+	public void getSex() {
+	
+	}
 }
