@@ -11,12 +11,9 @@ import com.design.model.order.reciver.ConcertReceiver1;
 import com.design.model.order.reciver.Receiver;
 
 /**
- * @Description
  *
  * @author ThinkPad
  * @date 2022/07/11 12:00
- * @param null
- * @return
  */
 public class Client {
   public static void main(String[] args) {

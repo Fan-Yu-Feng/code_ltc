@@ -13,6 +13,10 @@ public class BlackHuman implements Human {
 	@Override
 	public void talk() {
 		System.out.println("黑人会说话，一般人听不懂。");
-		
+	}
+	
+	@Override
+	public void getSex() {
+	
 	}
 }
