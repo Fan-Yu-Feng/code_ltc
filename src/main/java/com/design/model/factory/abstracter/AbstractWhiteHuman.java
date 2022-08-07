@@ -1,4 +1,4 @@
-package com.design.model.factory.singleton;
+package com.design.model.factory.abstracter;
 
 import com.design.model.factory.human.Human;
 

@@ -4,9 +4,9 @@ import com.design.model.factory.human.BlackHuman;
 import com.design.model.factory.human.Human;
 import com.design.model.factory.human.WhiteHuman;
 import com.design.model.factory.human.YellowHuman;
-import com.design.model.factory.singleton.factory.FemaleFactoryI;
-import com.design.model.factory.singleton.factory.IHumanFactory;
-import com.design.model.factory.singleton.factory.MaleFactoryI;
+import com.design.model.factory.abstracter.factory.FemaleFactoryI;
+import com.design.model.factory.abstracter.factory.IHumanFactory;
+import com.design.model.factory.abstracter.factory.MaleFactoryI;
 
 /**
  * 女娲类

@@ -1,9 +1,9 @@
-package com.design.model.factory.singleton.factory;
+package com.design.model.factory.abstracter.factory;
 
 import com.design.model.factory.human.Human;
-import com.design.model.factory.singleton.human.MaleBlackHuman;
-import com.design.model.factory.singleton.human.MaleWhiteHuman;
-import com.design.model.factory.singleton.human.MaleYellowHuman;
+import com.design.model.factory.abstracter.human.MaleBlackHuman;
+import com.design.model.factory.abstracter.human.MaleWhiteHuman;
+import com.design.model.factory.abstracter.human.MaleYellowHuman;
 
 /**
  * 生产男性的八卦炉

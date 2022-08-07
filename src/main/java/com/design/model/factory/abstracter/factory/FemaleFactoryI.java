@@ -1,9 +1,9 @@
-package com.design.model.factory.singleton.factory;
+package com.design.model.factory.abstracter.factory;
 
 import com.design.model.factory.human.Human;
-import com.design.model.factory.singleton.human.FemaleBlackHuman;
-import com.design.model.factory.singleton.human.FemaleWhiteHuman;
-import com.design.model.factory.singleton.human.FemaleYellowHuman;
+import com.design.model.factory.abstracter.human.FemaleBlackHuman;
+import com.design.model.factory.abstracter.human.FemaleWhiteHuman;
+import com.design.model.factory.abstracter.human.FemaleYellowHuman;
 
 /**
  * 生产女性的八卦炉
@@ -26,3 +26,5 @@ public class FemaleFactoryI implements IHumanFactory {
 		return new FemaleBlackHuman();
 	}
 }
+
+

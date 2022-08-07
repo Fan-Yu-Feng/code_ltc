@@ -1,6 +1,6 @@
-package com.design.model.factory.singleton.human;
+package com.design.model.factory.abstracter.human;
 
-import com.design.model.factory.singleton.AbstractYellowHuman;
+import com.design.model.factory.abstracter.AbstractYellowHuman;
 
 /**
  * @author FYF
