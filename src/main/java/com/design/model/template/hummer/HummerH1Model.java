@@ -7,6 +7,9 @@ package com.design.model.template.hummer;
  * @date 2022/8/11
  */
 public class HummerH1Model extends HummerModel {
+	// 要响喇叭
+	private boolean alarmFlag = true;
+	
 	@Override
 	public void start() {
 		System.out.println("悍马H1发动...");
@@ -27,5 +30,14 @@ public class HummerH1Model extends HummerModel {
 		System.out.println("悍马H1引擎声音是这样的...");
 	}
 	
+	// 自定义是否需要响喇叭
+	protected boolean isAlarm() {
+		return this.alarmFlag;
+	}
+	
+	// 要不要响喇叭，是由客户来决定的
+	public void setAlarm(boolean isAlarm) {
+		this.alarmFlag = isAlarm;
+	}
 	
 }

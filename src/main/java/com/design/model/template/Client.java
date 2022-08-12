@@ -1,7 +1,11 @@
 package com.design.model.template;
 
 import com.design.model.template.hummer.HummerH1Model;
-import com.design.model.template.hummer.HummerModel;
+import com.design.model.template.hummer.HummerH2Model;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
 /**
  * @author FYF
@@ -27,10 +31,25 @@ public class Client {
 	 * 3、重构时，模板方法模式是一个经常使用的模式，把相关的代码抽取到父类中，然后通过钩子函数约束其行为
 	 */
 	
-	public static void main(String[] args) {
-		HummerModel h1 = new HummerH1Model();
+	public static void main(String[] args) throws IOException {
+		/*
+		 父类如何调用子类的方法：可以调用，但是不允许
+		 1、将子类传递到父类的有参构造函数中
+		 2、使用反射
+		 3、父类调用子类的静态方法
+		 */
 		
+		
+		System.out.println("-------H1型号悍马--------");
+		System.out.println("H1型号的悍马是否需要喇叭声响？0-不需要 1-需要");
+		String type = (new BufferedReader(new InputStreamReader(System.in))).readLine();
+		HummerH1Model h1 = new HummerH1Model();
+		if (type.equals("0")) {
+			h1.setAlarm(false);
+		}
 		h1.run();
-		
+		System.out.println("\n-------H2型号悍马--------");
+		HummerH2Model h2 = new HummerH2Model();
+		h2.run();
 	}
 }

@@ -27,4 +27,7 @@ public class HummerH2Model extends HummerModel {
 		System.out.println("悍马H2引擎声音是这样的...");
 	}
 	
+	protected boolean isAlarm() {
+		return false;
+	}
 }

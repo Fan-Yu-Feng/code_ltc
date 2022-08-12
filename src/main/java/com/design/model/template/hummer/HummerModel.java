@@ -32,8 +32,18 @@ public abstract class HummerModel {
 		//引擎开始轰鸣
 		this.engineBoom();
 		//然后就开始跑了，跑的过程中遇到一条狗挡路，就按喇叭
-		this.alarm();
+		if (this.isAlarm()) {
+			this.alarm();
+		}
 		//到达目的地就停车
 		this.stop();
+	}
+	
+	/**
+	 * 钩子函数，默认喇叭是会响的
+	 * 由子类的一个方法方慧志决定公共部分的执行结果
+	 */
+	protected boolean isAlarm() {
+		return true;
 	}
 }
