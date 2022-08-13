@@ -6,8 +6,10 @@ package com.design.model.template.hummer;
  * @author FYF
  * @date 2022/8/11
  */
-public class HummerH1Model extends HummerModel {
-	// 要响喇叭
+public abstract class HummerH1Model extends HummerModel {
+	/**
+	 * 是否响喇叭
+	 */
 	private boolean alarmFlag = true;
 	
 	@Override
@@ -31,6 +33,7 @@ public class HummerH1Model extends HummerModel {
 	}
 	
 	// 自定义是否需要响喇叭
+	@Override
 	protected boolean isAlarm() {
 		return this.alarmFlag;
 	}
@@ -39,5 +42,8 @@ public class HummerH1Model extends HummerModel {
 	public void setAlarm(boolean isAlarm) {
 		this.alarmFlag = isAlarm;
 	}
+	
+	
+	public abstract void shot();
 	
 }
