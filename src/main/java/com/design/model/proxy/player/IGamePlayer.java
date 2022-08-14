@@ -23,4 +23,11 @@ public interface IGamePlayer {
 	 */
 	void upgrade();
 	
+	/**
+	 * 返回代理角色
+	 * @return 代理
+	 */
+	IGamePlayer getProxy();
+	
+	
 }

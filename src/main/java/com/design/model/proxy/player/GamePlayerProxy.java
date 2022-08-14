@@ -6,6 +6,14 @@ package com.design.model.proxy.player;
  */
 public class GamePlayerProxy implements IGamePlayer {
 	
+	public GamePlayerProxy(IGamePlayer gamePlayer,String name) throws Exception {
+		this.gamePlayer = new GamePlayer(this,name);
+	}
+	
+	public GamePlayerProxy(IGamePlayer gamePlayer ) {
+		this.gamePlayer = gamePlayer;
+	}
+	
 	private IGamePlayer gamePlayer = null;
 	
 	private void before() {
@@ -13,8 +21,8 @@ public class GamePlayerProxy implements IGamePlayer {
 	}
 	
 	private void after() {
-		this.killBoss();
-		this.upgrade();
+		this.gamePlayer.killBoss();
+		this.gamePlayer.upgrade();
 	}
 	public void request() {
 		this.before();
@@ -68,5 +76,14 @@ public class GamePlayerProxy implements IGamePlayer {
 	@Override
 	public void upgrade() {
 		this.gamePlayer.upgrade();
+	}
+	
+	/**
+	 * 代理是自己
+	 * @return 自己代理
+	 */
+	@Override
+	public IGamePlayer getProxy() {
+		return this;
 	}
 }

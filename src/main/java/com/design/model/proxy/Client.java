@@ -20,13 +20,12 @@ import com.design.model.proxy.player.IGamePlayer;
  */
 public class Client {
 	
-	public static void main(String[] args) {
-		//
+	public static void main(String[] args) throws Exception {
+
 		// IGamePlayer iGamePlayer = new GamePlayer("张三");
 		// iGamePlayer.login("张三","123456");
 		// iGamePlayer.killBoss();
 		// iGamePlayer.upgrade();
-		System.out.println("有代练代打");
 		
 		IGamePlayer gamePlayer = new GamePlayerProxy("张三");
 		
@@ -34,6 +33,12 @@ public class Client {
 		gamePlayer.killBoss();
 		gamePlayer.upgrade();
 		
+		System.out.println("----强制代理----");
+		IGamePlayer gamePlayer1 = new GamePlayer("李四");
+		GamePlayerProxy gamePlayerProxy = new GamePlayerProxy(gamePlayer1,"李四");
+		gamePlayerProxy.login("李四","123456");
+		gamePlayerProxy.killBoss();
+		gamePlayerProxy.upgrade();
 		
 		
 		
