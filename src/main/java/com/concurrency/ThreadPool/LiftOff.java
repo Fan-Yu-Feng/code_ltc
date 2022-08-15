@@ -5,6 +5,8 @@ package com.concurrency.ThreadPool;
  * @date 2022/3/31
  */
 public class LiftOff implements Runnable {
+	private static int taskCount = 0;
+	private final int id = taskCount++;
   /**
    * When an object implementing interface <code>Runnable</code> is used to create a thread,
    * starting the thread causes the object's <code>run</code> method to be called in that separately
@@ -16,19 +18,16 @@ public class LiftOff implements Runnable {
    * @see Thread#run()
    */
   protected int countDown = 10;
-
-  private final int id = taksCount++;
-  private static int taksCount = 0;
-
-  public LiftOff(int countDown) {
-    this.countDown = countDown;
-  }
-
-  public LiftOff() {
-    System.out.println("启动" + id);
-  }
-
-  public String status() {
+	
+	public LiftOff(int countDown) {
+		this.countDown = countDown;
+	}
+	
+	public LiftOff() {
+		System.out.println("启动" + id);
+	}
+	
+	public String status() {
     return "#" + id + "(" + (countDown > 0 ? countDown : "LiftOff") + ")";
   }
 
