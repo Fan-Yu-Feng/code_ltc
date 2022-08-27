@@ -1,10 +1,12 @@
 package com.design.model.proxy.player;
 
+import com.design.model.proxy.IPorxy;
+
 /**
  * @author FYF
  * @date 2022/8/14
  */
-public class GamePlayerProxy implements IGamePlayer {
+public class GamePlayerProxy implements IGamePlayer , IPorxy {
 	
 	public GamePlayerProxy(IGamePlayer gamePlayer,String name) throws Exception {
 		this.gamePlayer = new GamePlayer(this,name);
@@ -76,6 +78,7 @@ public class GamePlayerProxy implements IGamePlayer {
 	@Override
 	public void upgrade() {
 		this.gamePlayer.upgrade();
+		this.count();
 	}
 	
 	/**
@@ -85,5 +88,10 @@ public class GamePlayerProxy implements IGamePlayer {
 	@Override
 	public IGamePlayer getProxy() {
 		return this;
+	}
+	
+	@Override
+	public void count() {
+		System.out.println("升级费用 150");
 	}
 }
