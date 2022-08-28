@@ -40,25 +40,20 @@ public class GamePlayHandle implements InvocationHandler {
 	 *
 	 */
 	@Override
-	public Object invoke(Object proxy, Method method, Object[] args) throws InvocationTargetException, IllegalAccessException {
-		if("login".equals(method.getName())){
-			System.out.println("有人在用我账号登录");
+	public Object invoke(Object proxy, Method method, Object[] args) {
+		
+		Object res = null;
+		try {
+			res = method.invoke(this.object, args);
+			if("login".equals(method.getName())){
+				System.out.println("有人在用我账号登录");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-		return method.invoke(proxy, args);
+		
+		return res;
 	}
 	
-	
-	public static void main(String[] args) {
-		IGamePlayer gamePlayer = new GamePlayer("张三");
-		InvocationHandler gamePlayHandle = new GamePlayHandle(gamePlayer);
-		System.out.println("开始游戏啦");
-		// 获得类的 classLoader
-		ClassLoader classLoader = gamePlayer.getClass().getClassLoader();
-		// 获取动态代理
-		IGamePlayer proxy = (IGamePlayer)Proxy.newProxyInstance(classLoader, new Class[]{IGamePlayer.class}, gamePlayHandle);
-		proxy.login("zhangSan", "password");
-		proxy.killBoss();
-		proxy.upgrade();
-	}
 	
 }
