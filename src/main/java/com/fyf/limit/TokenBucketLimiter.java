@@ -10,6 +10,11 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * 令牌桶 限速
+ * 令牌桶的好处之一就是可以方便地应对 突发出口流量（后端能力的提升）。
+ * <p>
+ * 比如，可以改变令牌的发放速度，算法能按照新的发送速率调大令牌的发放数量，使得出口突发流量能被处理。
+ * Guava是Java领域优秀的开源项目，它包含了Google在Java项目中使用一些核心库，包含集合(Collections)，缓存(Caching)，并发编程库(Concurrency)，常用注解(Common annotations)，String操作，
+ * I/O操作方面的众多非常实用的函数。 Guava的 RateLimiter提供了令牌桶算法实现：平滑突发限流(SmoothBursty)和平滑预热限流(SmoothWarmingUp)实现。
  *
  * @author FYF
  */
