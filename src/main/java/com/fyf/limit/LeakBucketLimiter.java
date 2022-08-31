@@ -44,13 +44,12 @@ public class LeakBucketLimiter {
 	private static AtomicInteger water = new AtomicInteger(0);
 	
 	/**
-	 * //返回值说明：
+	 * 返回值说明：
 	 *
 	 * @param taskId 任务id
 	 * @param turn   轮数
 	 *
-	 * @return false 没有被限制到
-	 * true 被限流
+	 * @return false 没有被限制到 true 被限流
 	 */
 	public static synchronized boolean isLimit(long taskId, int turn) {
 		// 如果是空桶，就当前时间作为漏出的时间
@@ -59,18 +58,25 @@ public class LeakBucketLimiter {
 			water.addAndGet(1);
 			return false;
 		}
+		
+		long gap = System.currentTimeMillis() - lastOutTime;
 		// 执行漏水
-		int waterLeaked = ((int) ((System.currentTimeMillis() - lastOutTime) / 1000)) * leakRate;
+		int waterLeaked = ((int) (gap / 1000)) * leakRate;
+		// 秒级限流，当漏水了才会更新上次流水时间
+		if (waterLeaked != 0) {
+			lastOutTime = System.currentTimeMillis();
+		}
 		// 计算剩余水量
 		int waterLeft = water.get() - waterLeaked;
 		water.set(Math.max(0, waterLeft));
 		// 重新更新leakTimeStamp
-		lastOutTime = System.currentTimeMillis();
 		// 尝试加水,并且水还未满 ，放行
 		if ((water.get()) < capacity) {
+			log.info("未限流，当前id {}，时间间隔：{}, 剩余水量：{}，漏水量：{}", taskId, gap, waterLeft, waterLeaked);
 			water.addAndGet(1);
 			return false;
 		} else {
+			log.info("限流了，当前id {}，时间间隔：{}, 剩余水量：{}，漏水量：{}", taskId, gap, waterLeft, waterLeaked);
 			// 水满，拒绝加水， 限流
 			return true;
 		}
@@ -83,7 +89,7 @@ public class LeakBucketLimiter {
 	private final ExecutorService pool = Executors.newFixedThreadPool(10);
 	
 	@Test
-	public void testLimit() {
+	public void limitTest() {
 		
 		// 被限制的次数
 		AtomicInteger limited = new AtomicInteger(0);
