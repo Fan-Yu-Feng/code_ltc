@@ -1,31 +1,29 @@
 package com.design.model.order.command;
 
+import com.design.model.order.group.Group;
+import com.design.model.order.group.PageGroup;
+import com.design.model.order.reciver.ConcertReceiver1;
 import com.design.model.order.reciver.Receiver;
 
 /**
+ * 具体命令类 1
+ *
  * @author FYF
- * @Description 具体执行命令者1
  * @date 2022/7/10
  */
 
 public class ConcertCommand1 extends Command {
-
-	private Receiver receiver;
-
-	public ConcertCommand1(Receiver receiver) {
-		this.receiver = receiver;
+	
+	public ConcertCommand1() {
+		super(new ConcertReceiver1());
 	}
-
+	
+	public ConcertCommand1(Receiver receiver) {
+		super(receiver);
+	}
+	
 	@Override
 	public void execute() {
-		this.receiver.doSomeThing();
-	}
-
-	public Receiver getReceiver() {
-		return receiver;
-	}
-
-	public void setReceiver(Receiver receiver) {
-		this.receiver = receiver;
+		super.receiver.doSomeThing();
 	}
 }
