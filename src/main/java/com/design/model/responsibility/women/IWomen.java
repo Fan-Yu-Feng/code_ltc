@@ -1,4 +1,4 @@
-package com.design.model.responsibility.Women;
+package com.design.model.responsibility.women;
 
 /**
  * 古代女性三从四德
