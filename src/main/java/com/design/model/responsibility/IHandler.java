@@ -1,6 +1,6 @@
 package com.design.model.responsibility;
 
-import com.design.model.responsibility.Women.IWomen;
+import com.design.model.responsibility.women.IWomen;
 
 /**
  * 有处理权的人，也就是能处理妇女请求的接口

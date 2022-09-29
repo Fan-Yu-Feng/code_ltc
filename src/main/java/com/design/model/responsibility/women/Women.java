@@ -1,4 +1,4 @@
-package com.design.model.responsibility.Women;
+package com.design.model.responsibility.women;
 
 /**
  * 女人类
@@ -23,18 +23,31 @@ public class Women implements IWomen {
 	
 	@Override
 	public int getType() {
-		return 0;
+		return this.type;
 	}
 	
 	@Override
 	public String getRequest() {
-		return null;
+		return this.request;
 	}
 	
 	
 	public Women(int type, String request) {
 		this.type = type;
-		this.request = request;
+		//为了便于显示，在这里做了点处理
+		switch(this.type){
+			case 1:
+				this.request = "女儿的请求是：" + request;
+				break;
+			case 2:
+				this.request = "妻子的请求是：" + request;
+				break;
+			case 3:
+				this.request = "母亲的请求是：" + request;
+			default:
+				break;
+		}
+
 	}
 	
 	
