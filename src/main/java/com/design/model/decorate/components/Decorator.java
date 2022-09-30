@@ -1,4 +1,4 @@
-package com.design.model.decorate;
+package com.design.model.decorate.components;
 
 import com.design.model.decorate.report.FourthGradeSchoolReport;
 import com.design.model.decorate.report.SchoolReport;

@@ -1,5 +1,7 @@
 package com.design.model.decorate;
 
+import com.design.model.decorate.components.HighScoreDecorator;
+import com.design.model.decorate.components.SortDecorator;
 import com.design.model.decorate.report.FourthGradeSchoolReport;
 import com.design.model.decorate.report.SchoolReport;
 import com.design.model.decorate.report.SugarFourthGradeSchoolReport;
