@@ -42,17 +42,41 @@ public class Branch implements IBranch {
 	}
 	
 	@Override
-	public void add(IBranch branch) {
-		this.subordinateList.add(branch);
-	}
-	
-	@Override
-	public void add(ILeaf leaf) {
-		this.subordinateList.add(leaf);
-	}
-	
-	@Override
 	public ArrayList<Object> getSubordinateInfo() {
 		return this.subordinateList;
+	}
+	
+	@Override
+	public void addSubordinate(ICorp corp) {
+		this.subordinateList.add(corp);
+	}
+	
+	
+	public ArrayList<Object> getSubordinateList() {
+		return subordinateList;
+	}
+	
+	public String getName() {
+		return name;
+	}
+	
+	public void setName(String name) {
+		this.name = name;
+	}
+	
+	public String getPosition() {
+		return position;
+	}
+	
+	public void setPosition(String position) {
+		this.position = position;
+	}
+	
+	public int getSalary() {
+		return salary;
+	}
+	
+	public void setSalary(int salary) {
+		this.salary = salary;
 	}
 }

@@ -8,28 +8,15 @@ import java.util.ArrayList;
  * @author FYF
  * @date 2022/10/3
  */
-public interface IBranch {
+public interface IBranch extends ICorp {
 	
 	/**
 	 * 获得信息
 	 *
 	 * @return String
 	 */
+	@Override
 	String getInfo();
-	
-	/**
-	 * 增加数据节点，例如研发部下设的研发一组
-	 *
-	 * @param branch 数据节点
-	 */
-	void add(IBranch branch);
-	
-	/**
-	 * 增加叶子节点
-	 *
-	 * @param leaf 叶子节点
-	 */
-	void add(ILeaf leaf);
 	
 	/**
 	 * 获得下级信息
@@ -37,4 +24,12 @@ public interface IBranch {
 	 * @return ArrayList
 	 */
 	ArrayList<Object> getSubordinateInfo();
+	
+	/**
+	 * 增加叶子节点信息
+	 *
+	 * @param corp 分支或树叶
+	 */
+	void addSubordinate(ICorp corp);
+	
 }

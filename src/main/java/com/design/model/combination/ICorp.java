@@ -1,16 +1,18 @@
 package com.design.model.combination;
 
 /**
+ * 所有人员信息的接口类
+ *
  * @author FYF
- * @date 2022/10/3
+ * @date 2022/10/8
  */
-public interface ILeaf extends ICorp {
+public interface ICorp {
+	
 	
 	/**
-	 * 获得自己的信息
-	 *
+	 * 获取员工信息
 	 * @return String
 	 */
-	@Override
 	String getInfo();
+	
 }
