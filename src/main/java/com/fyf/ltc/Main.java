@@ -7,9 +7,16 @@ package com.fyf.ltc;
 public class Main {
 
   public static void main(String[] args) {
-
-    int abcdefga = lengthOfLongestSubstring("abcdefga");
-    System.out.println(abcdefga);
+	
+  	
+	  int var = ((19-13) + 2 )<< 8;
+	
+	  System.out.println("var = " + var);
+	  double pow = 4<<8;
+	  System.out.println("pow = " + pow);
+	
+	  // int abcdefga = lengthOfLongestSubstring("abcdefga");
+    // System.out.println(abcdefga);
   }
 
   public static int lengthOfLongestSubstring(String s) {
@@ -17,9 +24,9 @@ public class Main {
     int n = s.length();
     int start = 0;
     int res = 0;
-    for (int i = 0; i < last.length; i++) {
-      System.out.println(last[i]);
-    }
+	  for (int value : last) {
+		  System.out.println(value);
+	  }
 
     for (int i = 0; i < n; i++) {
       // 记录字符下标位置
