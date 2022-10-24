@@ -1,4 +1,4 @@
-package com.fyf.ltc;
+package com.fyf.ltc.lc_700;
 
 /**
  * @author FYF
