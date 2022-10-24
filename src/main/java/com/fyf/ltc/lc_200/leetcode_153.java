@@ -1,7 +1,7 @@
-package com.fyf.ltc;
+package com.fyf.ltc.lc_200;
 
 /**
- * @author FYF @Description
+ * @author FYF
  * @date 2022/1/26
  */
 public class leetcode_153 {
