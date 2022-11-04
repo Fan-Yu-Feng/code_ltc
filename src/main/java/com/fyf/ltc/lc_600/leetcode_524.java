@@ -19,13 +19,41 @@ public class leetcode_524 {
 		arrayList.add("monkey");
 		arrayList.add("plea");
 		
-	
-		String sdsa = findLongestWord(	"abpcplea", arrayList);
+		
+		String sdsa = findLongestWord("abpcplea", arrayList);
 		System.out.println("sdsa = " + sdsa);
 		
 		method();
 		
 	}
+	
+	/**
+	 * 使用双指针
+	 *
+	 * @param s          要比对的源字符串
+	 * @param dictionary 要比对的字符串 列表
+	 *
+	 * @return 最长匹配且字母序最小的字符串
+	 */
+	public String findLongestWord2(String s, List<String> dictionary) {
+		String res = "";
+		for (String t : dictionary) {
+			int i = 0, j = 0;
+			while (i < t.length() && j < s.length()) {
+				if (t.charAt(i) == s.charAt(j)) {
+					++i;
+				}
+				++j;
+			}
+			if (i == t.length()) {
+				if (t.length() > res.length() || (t.length() == res.length() && t.compareTo(res) < 0)) {
+					res = t;
+				}
+			}
+		}
+		return res;
+	}
+	
 	
 	public static String findLongestWord(String s, List<String> dict) {
 		// 给你一个字符串 s 和一个字符串数组 dictionary ，找出并返回 dictionary 中最长的字符串，该字符串可以通过删除 s 中的某些字符得到。
@@ -46,20 +74,20 @@ public class leetcode_524 {
 		//  时间复杂度 O(mlog{m} + m*n)O(mlogm+m∗n) 空间复杂度：O(\log{m})O(logm)
 		
 		int i, j, len = s.length();
-		for (String str:
-		     dict) {
+		for (String str :
+				dict) {
 			i = 0;
 			j = 0;
 			int strLen = str.length();
-			while(i < len && j < strLen){
+			while (i < len && j < strLen) {
 				// 由于 str 字符串是 s 的子序列，因此在 s 中可以找到所有的 子字符串
-				if(s.charAt(i) == str.charAt(j)){
+				if (s.charAt(i) == str.charAt(j)) {
 					j++;
 				}
 				i++;
 			}
 			// 匹配到的第一个字符串就是最长且字母序最小的 ans
-			if(j==strLen){
+			if (j == strLen) {
 				return str;
 			}
 		}
