@@ -20,7 +20,7 @@ public class leetcode_724 {
 	public static void main(String[] args) {
 		
 		
-		int i = reachNumber(100);
+		int i = reachNumber(10);
 		System.out.println("i = " + i);
 		
 	}
@@ -37,6 +37,26 @@ public class leetcode_724 {
 		}
 		
 		return getMinMoveNum(moves,target);
+	}
+	
+	/**
+	 * 官方题解
+	 *
+	 * @param target 目标数字
+	 * @return 次数
+	 */
+	public static int reachNumber2(int target) {
+		
+		target = Math.abs(target);
+		int moves = 0;
+		
+			while(target > 0){
+				target-=++moves;
+			}
+		
+		// 如果目标为偶数 则结果 在 0-move 之间可以获得
+		// 如果目标为奇数，则结果在 0 ~ move + 1 | move +2 可以获得
+		return target % 2 == 0? moves : moves + 1+ moves%2;
 	}
 	
 	private static int getMinMoveNum(int moves, int target) {
