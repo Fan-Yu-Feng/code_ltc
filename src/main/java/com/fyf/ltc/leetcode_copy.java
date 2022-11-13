@@ -8,11 +8,7 @@ public class leetcode_copy {
 	
 	
 	public static void main(String[] args) {
-		method();
 		
 	}
-	
-	public static void method() {
-	}
-	
+
 }
