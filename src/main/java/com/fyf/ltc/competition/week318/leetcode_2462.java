@@ -1,4 +1,4 @@
-package com.fyf.ltc.week318;
+package com.fyf.ltc.competition.week318;
 
 /**
  * 给你一个下标从 0 开始的整数数组 costs ，其中 costs[i] 是雇佣第 i 位工人的代价。

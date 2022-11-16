@@ -1,4 +1,4 @@
-package com.fyf.ltc.week318;
+package com.fyf.ltc.competition.week318;
 
 import java.util.HashMap;
 

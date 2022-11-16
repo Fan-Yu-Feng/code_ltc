@@ -1,4 +1,4 @@
-package com.fyf.ltc.week318;
+package com.fyf.ltc.competition.week318;
 
 import java.util.Arrays;
 
@@ -22,8 +22,8 @@ public class leetcode_2460 {
 	public static void main(String[] args) {
 		method();
 		
-		int arr[] = new int[]{1, 2, 2, 1, 1, 0};
-		int arr1[] = new int[]{0, 1};
+		int[] arr = new int[]{1, 2, 2, 1, 1, 0};
+		int[] arr1 = new int[]{0, 1};
 		
 		int[] ints = applyOperations(arr);
 		for (int x :
