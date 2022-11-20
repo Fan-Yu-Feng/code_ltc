@@ -30,6 +30,8 @@ public class leetcode_2460 {
 				ints) {
 			System.out.println("x = " + x);
 		}
+		
+		
 	}
 	
 	public static void method() {
@@ -67,14 +69,14 @@ public class leetcode_2460 {
 	public static int[] applyOperations2(int[] nums) {
 		int len = nums.length;
 		// 时间复杂度为 O(N) 空间为 O(1)
-		int j =0;
+		int j = 0;
 		for (int i = 0; i < len - 1; ++i) {
 			if (nums[i] == nums[i + 1]) {
 				nums[i] *= 2;
 				nums[i + 1] = 0;
 			}
-			if(nums[i] > 0){
-				nums[j]= nums[i];
+			if (nums[i] > 0) {
+				nums[j] = nums[i];
 				nums[i] = nums[j];
 				j++;
 			}
