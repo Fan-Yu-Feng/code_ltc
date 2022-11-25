@@ -23,7 +23,7 @@ public class LocalExcelUtil {
 	public static void main(String[] args) {
 		
 		String filePath = "D:\\businessdata\\中智信-捷信消金-蓝海银行无订单表有还款计划表.xlsx";
-		String filePath1 = "D:\\工作\\副本恒润-小赢-富民银行项目待删除数据明细.xlsx";
+		String filePath1 = "D:\\工作\\江南二期-放款成功订单(1).xlsx";
 		getExcelRead(filePath1);
 		
 	}
@@ -31,7 +31,7 @@ public class LocalExcelUtil {
 	/**
 	 * 大文件数据量的 excel
 	 *
-	 * @return
+	 * @return RowHandler
 	 */
 	private static RowHandler createRowHandler() {
 		return new RowHandler() {
@@ -42,7 +42,7 @@ public class LocalExcelUtil {
 				String filePath = "D:\\工作\\t_order_info.txt";
 				
 				String str = "delete from t_order_info where order_no = '%s' and project_no = 'hr-xy-fmyh';\n";
-				switch(sheetIndex){
+				switch (sheetIndex) {
 					case 0:
 						filePath = "D:\\工作\\t_order_info-%s.txt";
 						str = "delete from t_order_info where order_no = '%s' and project_no = 'hr-xy-fmyh';\n";
@@ -66,15 +66,16 @@ public class LocalExcelUtil {
 				
 				int mod = (int) (rowIndex / 10000);
 				
-				filePath = String.format(filePath,mod);
+				filePath = String.format(filePath, mod);
 				String orderNo = rowlist.get(0).toString();
-				String sql = String.format(str,  orderNo);
+				String sql = String.format(str, orderNo);
 				try {
 					FileUtils.writeStringToFile(new File(filePath), sql, true);
 				} catch (Exception e) {
 					log.error(e.getMessage(), e);
 				}
 			}
+			
 			@Override
 			public void handleCell(int sheetIndex, long rowIndex, int cellIndex, Object value, CellStyle xssfCellStyle) {
 				// log.info("handleCell :[{}] [{}] {}, {}", sheetIndex, rowIndex, value,xssfCellStyle);
@@ -88,10 +89,11 @@ public class LocalExcelUtil {
 			
 		};
 	}
+	
 	/**
 	 * 大文件数据量的 excel select
 	 *
-	 * @return
+	 * @return RowHandler
 	 */
 	private static RowHandler createRowHandler2() {
 		return new RowHandler() {
@@ -101,37 +103,19 @@ public class LocalExcelUtil {
 				
 				String filePath = "D:\\工作\\select-t_order_info.txt";
 				
-				String str = "select * from t_order_info where  project_no = 'hr-xy-fmyh' and  order_no in ( '1',) '%s' ;\n";
-				switch(sheetIndex){
-					case 0:
-						filePath = "D:\\工作\\select-t_order_info.txt";
-						str = "select * from t_order_info where order_no = '%s' and project_no = 'hr-xy-fmyh';\n";
-						break;
-					case 1:
-						filePath = "D:\\工作\\select-t_repay_plan_detail.txt";
-						str = "select * from t_repay_plan_detail where order_no = '%s' and project_no = 'hr-xy-fmyh';\n";
-						break;
-					case 2:
-						filePath = "D:\\工作\\select-t_repay_record.txt";
-						str = "select * from t_repay_record where order_no = '%s' and project_no = 'hr-xy-fmyh';\n";
-						break;
-					case 3:
-						filePath = "D:\\工作\\select-t_compensate_record.txt";
-						str = "select * from t_compensate_record where order_no = '%s' and project_no = 'hr-xy-fmyh';\n";
-						break;
-					default:
-						break;
-				}
+				String str = "UPDATE `t_order_info` SET `project_no` = 'zzx-lx-jnnsh', `project_name` = '中智信-乐信-江南农商行固收分润' WHERE `order_no` = '%s'; \n";
+				
 				log.info("handle :[{}] [{}] {}", sheetIndex, rowIndex, rowlist);
 				
 				String orderNo = rowlist.get(0).toString();
-				String sql = "'".concat(orderNo).concat("',\n");
+				String sql = String.format(str, orderNo);
 				try {
 					FileUtils.writeStringToFile(new File(filePath), sql, true);
 				} catch (Exception e) {
 					log.error(e.getMessage(), e);
 				}
 			}
+			
 			@Override
 			public void handleCell(int sheetIndex, long rowIndex, int cellIndex, Object value, CellStyle xssfCellStyle) {
 				// log.info("handleCell :[{}] [{}] {}, {}", sheetIndex, rowIndex, value,xssfCellStyle);
@@ -148,15 +132,15 @@ public class LocalExcelUtil {
 	
 	
 	public static void getExcelRead(String filePath) {
-		for(int i = 2; i <= 3 ; ++i) {
+		for (int i = 0; i <= 0; ++i) {
 			ExcelUtil.readBySax(filePath, i, createRowHandler2());
 		}
 	}
 	
 	
-	public static void generateSql(String excelPath){
+	public static void generateSql(String excelPath) {
 		
-		ExcelReader reader = ExcelUtil.getReader(FileUtil.file("D:\\工作\\副本恒润-小赢-富民银行项目待删除数据明细.xlsx"));
+		ExcelReader reader = ExcelUtil.getReader(FileUtil.file("D:\\工作\\江南二期-放款成功订单(1).xlsx"));
 		
 		// ExcelReader reader = ExcelUtil.getReader(FileUtil.file("D:\\businessdata\\中智信-捷信消金-蓝海银行无订单表有还款计划表.xlsx"));
 		
