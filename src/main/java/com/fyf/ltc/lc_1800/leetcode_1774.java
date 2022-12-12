@@ -1,7 +1,5 @@
 package com.fyf.ltc.lc_1800;
 
-import java.util.Arrays;
-
 /**
  * @author FYF
  * @date 2022/10/23
@@ -50,6 +48,54 @@ public class leetcode_1774 {
 			}
 		}
 		return ans;
+	}
+	
+	int ans = Integer.MAX_VALUE;
+	
+	/**
+	 * 计算最接近目标价格的甜点成本
+	 *
+	 * @param baseCosts    基料价格
+	 * @param toppingCosts 辅料价格
+	 * @param target       目标价格
+	 *
+	 * @return 价格
+	 */
+	public int closestCost2(int[] baseCosts, int[] toppingCosts, int target) {
+		for (int x :
+				baseCosts) {
+			dfs(0, x, toppingCosts, target);
+		}
+		return ans;
+	}
+	
+	/**
+	 * 深度计算选择每种配料之后的价格 一共三种情况：选1个，选2个，不选
+	 *
+	 * @param x            基料价格
+	 * @param sum          总和
+	 * @param toppingCosts 辅料价格list
+	 * @param target       目标价格
+	 */
+	private void dfs(int x, int sum, int[] toppingCosts, int target) {
+		int a = Math.abs(sum - target), b = Math.abs(ans - target);
+		if (a < b) {
+			// 当前离 target 价格最小
+			ans = sum;
+		}
+		
+		if (sum > target) {
+			// 此时 sum 已经大于 target 继续dfs 只会加大与 target 的间隔
+			return;
+		}
+		if (a == b && sum < ans) {
+			// 在于target 相差的绝对值相同的情况下，那么 ans 取最小的
+			ans = sum;
+		}
+		for (int i = x; i < toppingCosts.length; ++i) {
+			dfs(i + 1, sum + toppingCosts[i], toppingCosts, target);
+			dfs(i + 1, sum + toppingCosts[i] * 2, toppingCosts, target);
+		}
 	}
 	
 }
