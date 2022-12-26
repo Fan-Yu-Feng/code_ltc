@@ -41,7 +41,7 @@ public class exportExcelTest {
 		EasyExcel.write(filename, DemoData.class)
 				.autoCloseStream(true)
 				.registerWriteHandler(new ExcelFillCellMergeStrategy())
-				.sheet("名字")
+				.sheet("sheetName")
 				.doWrite(data());
 		
 	}

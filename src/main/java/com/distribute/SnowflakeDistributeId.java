@@ -29,9 +29,9 @@ public class SnowflakeDistributeId {
 	
 	// ==============================Fields===========================================
 	/**
-	 * 开始时间截 (2015-01-01)
+	 * 开始时间截 (2018-07-03)
 	 */
-	private final long twepoch = 1420041600000L;
+	private final long twepoch = 1530607760000L;
 	
 	/**
 	 * 机器id所占的位数
@@ -185,17 +185,17 @@ public class SnowflakeDistributeId {
 	public static void main(String[] args) {
 		
 		final long workerIdBits = 5L;
-
-
+		
+		
 		String localhostIp = getLocalhostIp();
 		
 		assert localhostIp != null;
 		String[] split = localhostIp.split("\\.");
 		
 		long ipWorkId = 0L;
-		if(split[3] != null && StringUtils.isNotEmpty(split[3])){
+		if (split[3] != null && StringUtils.isNotEmpty(split[3])) {
 			
-			ipWorkId = Long.parseLong(split[3]) & ( (1L << workerIdBits) -1 );
+			ipWorkId = Long.parseLong(split[3]) & ((1L << workerIdBits) - 1);
 			System.out.println("aLong = " + ipWorkId);
 		}
 		
@@ -209,27 +209,27 @@ public class SnowflakeDistributeId {
 			
 			
 			//      System.out.println(Long.toBinaryString(id));
-			System.out.println( "XNAC" + id);
+			System.out.println(id);
 		}
 		
 	}
 	
-	public static String getLocalhostIp(){
-		try{
+	public static String getLocalhostIp() {
+		try {
 			Enumeration<NetworkInterface> allNetInterfaces = NetworkInterface.getNetworkInterfaces();
-			while (allNetInterfaces.hasMoreElements()){
+			while (allNetInterfaces.hasMoreElements()) {
 				NetworkInterface netInterface = allNetInterfaces.nextElement();
 				Enumeration<InetAddress> addresses = netInterface.getInetAddresses();
-				while (addresses.hasMoreElements()){
+				while (addresses.hasMoreElements()) {
 					InetAddress ip = addresses.nextElement();
 					if (ip instanceof Inet4Address
 							    && !ip.isLoopbackAddress() //loopback地址即本机地址，IPv4的loopback范围是127.0.0.0 ~ 127.255.255.255
-							    && !ip.getHostAddress().contains(":")){
+							    && !ip.getHostAddress().contains(":")) {
 						return ip.getHostAddress();
 					}
 				}
 			}
-		}catch(Exception e){
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return null;

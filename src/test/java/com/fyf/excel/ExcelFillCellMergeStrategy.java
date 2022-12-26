@@ -21,11 +21,13 @@ import java.util.List;
  */
 public class ExcelFillCellMergeStrategy implements CellWriteHandler {
 	
-	// 需要从第几行开始合并，0表示第1行
+	/**
+	 * 需要从第几行开始合并，0表示第1行
+	 */
 	private final static int mergeRowIndex = 0;
-	// 合并的哪些列，比如为4时，当前行id和上一行id相同则合并前五列
-
-	
+	/**
+	 * 合并的哪些列，比如为4时，当前行id和上一行id相同则合并前五列
+	 */
 	private final static List<Integer> mergeColumnIndex = Arrays.asList(1, 2, 3);
 	
 	public ExcelFillCellMergeStrategy() {
