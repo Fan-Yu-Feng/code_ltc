@@ -1,15 +1,16 @@
 package com.distribute;
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 
+import java.lang.management.ManagementFactory;
 import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.util.Enumeration;
 
 /**
- * 著作权归https://pdai.tech所有。
- * 链接：https://pdai.tech/md/algorithm/alg-domain-id-snowflake.html
+ * 链接：<a href="https://pdai.tech/md/algorithm/alg-domain-id-snowflake.html">...</a>
  * Twitter_Snowflake<br>
  * SnowFlake的结构如下(每部分用-分开):<br>
  * 0 - 0000000000 0000000000 0000000000 0000000000 0 - 00000 - 00000 - 000000000000 <br>
@@ -25,13 +26,18 @@ import java.util.Enumeration;
  * @version 1.0
  * @date 2022/10/14 15:35
  */
+@Slf4j
 public class SnowflakeDistributeId {
 	
 	// ==============================Fields===========================================
 	/**
-	 * 开始时间截 (2018-07-03)
+	 * 开始时间截 (2022-01-01)
 	 */
-	private final long twepoch = 1530607760000L;
+	private final long twepoch = 1640966400;
+	
+	
+	private final static SnowflakeDistributeId ID_WORKER = new SnowflakeDistributeId();
+	
 	
 	/**
 	 * 机器id所占的位数
@@ -100,22 +106,73 @@ public class SnowflakeDistributeId {
 	
 	//==============================Constructors=====================================
 	
+	public static SnowflakeDistributeId getInstance(){
+		return ID_WORKER;
+	}
+	
 	/**
 	 * 构造函数
 	 *
-	 * @param workerId     工作ID (0~31)
-	 * @param datacenterId 数据中心ID (0~31)
 	 */
-	public SnowflakeDistributeId(long workerId, long datacenterId) {
-		if (workerId > maxWorkerId || workerId < 0) {
+	private SnowflakeDistributeId() {
+		this.datacenterId = getDatacenterId(maxDatacenterId);
+		this.workerId = getMaxWorkerId(this.datacenterId, maxWorkerId);
+		
+		log.info("datacenterId : {} , workerId :{} ", datacenterId,workerId);
+		
+		if (this.workerId > maxWorkerId || this.workerId < 0) {
 			throw new IllegalArgumentException(String.format("worker Id can't be greater than %d or less than 0", maxWorkerId));
 		}
-		if (datacenterId > maxDatacenterId || datacenterId < 0) {
+		if (this.datacenterId > maxDatacenterId || this.datacenterId < 0) {
 			throw new IllegalArgumentException(String.format("datacenter Id can't be greater than %d or less than 0", maxDatacenterId));
 		}
-		this.workerId = workerId;
-		this.datacenterId = datacenterId;
+	
 	}
+	
+	/**
+	 * <p>
+	 * 获取 maxWorkerId
+	 * </p>
+	 */
+	protected static long getMaxWorkerId(long datacenterId, long maxWorkerId) {
+		StringBuffer mpid = new StringBuffer();
+		mpid.append(datacenterId);
+		String name = ManagementFactory.getRuntimeMXBean().getName();
+		if (!name.isEmpty()) {
+			/*
+			 * GET jvmPid
+			 */
+			mpid.append(name.split("@")[0]);
+		}
+		/*
+		 * MAC + PID 的 hashcode 获取16个低位
+		 */
+		return (mpid.toString().hashCode() & 0xffff) % (maxWorkerId + 1);
+	}
+	/**
+	 * <p>
+	 * 数据标识id部分
+	 * </p>
+	 */
+	protected static long getDatacenterId(long maxDatacenterId) {
+		long id = 0L;
+		try {
+			InetAddress ip = InetAddress.getLocalHost();
+			NetworkInterface network = NetworkInterface.getByInetAddress(ip);
+			if (network == null) {
+				id = 1L;
+			} else {
+				byte[] mac = network.getHardwareAddress();
+				id = ((0x000000FF & (long) mac[mac.length - 1])
+						      | (0x0000FF00 & (((long) mac[mac.length - 2]) << 8))) >> 6;
+				id = id % (maxDatacenterId + 1);
+			}
+		} catch (Exception e) {
+			log.info(" getDatacenterId: " + e.getMessage());
+		}
+		return id;
+	}
+	
 	
 	// ==============================Methods==========================================
 	
@@ -196,20 +253,18 @@ public class SnowflakeDistributeId {
 		if (split[3] != null && StringUtils.isNotEmpty(split[3])) {
 			
 			ipWorkId = Long.parseLong(split[3]) & ((1L << workerIdBits) - 1);
-			System.out.println("aLong = " + ipWorkId);
+			log.info("aLong = " + ipWorkId);
 		}
 		
-		System.out.println("localhostIp = " + localhostIp);
+		log.info("localhostIp = " + localhostIp);
 		
 		
-		SnowflakeDistributeId idWorker = new SnowflakeDistributeId(ipWorkId, 0);
+		SnowflakeDistributeId idWorker = new SnowflakeDistributeId();
 		
 		for (int i = 0; i < 1000; i++) {
 			long id = idWorker.nextId();
 			
-			
-			//      System.out.println(Long.toBinaryString(id));
-			System.out.println(id);
+			log.info(String.valueOf(id));
 		}
 		
 	}
