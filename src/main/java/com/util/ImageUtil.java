@@ -7,12 +7,7 @@ import org.opencv.core.Size;
 import org.opencv.imgcodecs.Imgcodecs;
 import org.opencv.imgproc.Imgproc;
 
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
-import java.awt.image.ConvolveOp;
-import java.awt.image.Kernel;
 import java.io.File;
-import java.io.IOException;
 
 
 /**
@@ -24,15 +19,6 @@ import java.io.IOException;
  */
 public class ImageUtil {
 	
-	public static BufferedImage sharpen(BufferedImage image) {
-		float[] elements = {0.0f, -1.0f, 0.0f, -1.0f, 5.0f, -1.0f, 0.0f, -1.0f, 0, 0f};
-		BufferedImage bimg = new BufferedImage(image.getWidth(), image.getHeight(), BufferedImage.TYPE_INT_RGB);
-		Kernel kernel = new Kernel(3, 3, elements);
-		ConvolveOp cop = new ConvolveOp(kernel, ConvolveOp.EDGE_NO_OP, null);
-		
-		cop.filter(image, bimg);
-		return bimg;
-	}
 	
 	
 	public static void main(String[] args) {
@@ -69,20 +55,7 @@ public class ImageUtil {
 			System.out.println("e = " + e);
 		}
 	}
-	
-	private static BufferedImage read(File file) throws IOException {
-		return ImageIO.read(file);
-	}
-	
-	public static BufferedImage blur(BufferedImage image) {
-		float[] elements = {0.11111f, 0.11111f, 0.11111f, 0.11111f, 0.11111f, 0.11111f, 0.11111f, 0.11111f, 0.11111f};
-		BufferedImage bimg = new BufferedImage(image.getWidth(), image.getHeight(), BufferedImage.TYPE_INT_RGB);
-		Kernel kernel = new Kernel(3, 3, elements);
-		ConvolveOp cop = new ConvolveOp(kernel, ConvolveOp.EDGE_NO_OP, null);
-		
-		cop.filter(image, bimg);
-		return bimg;
-	}
+
 	
 	
 }
