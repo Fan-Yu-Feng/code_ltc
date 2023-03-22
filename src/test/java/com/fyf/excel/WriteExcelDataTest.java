@@ -4,9 +4,12 @@ import com.alibaba.excel.EasyExcel;
 import com.alibaba.excel.enums.CellDataTypeEnum;
 import com.alibaba.excel.metadata.data.ImageData;
 import com.alibaba.excel.metadata.data.WriteCellData;
+import com.alibaba.excel.read.listener.PageReadListener;
 import com.alibaba.excel.util.FileUtils;
 import com.alibaba.excel.util.ListUtils;
+import com.alibaba.fastjson.JSON;
 import com.dto.ImageDemoData;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 
 import java.io.File;
@@ -19,6 +22,7 @@ import java.util.List;
  * @author FYF
  * @since 2023/3/21 19:24
  */
+@Slf4j
 public class WriteExcelDataTest {
 	
 	/**
@@ -36,7 +40,9 @@ public class WriteExcelDataTest {
 		// 1. 将图片上传到oss 或者其他存储网站: https://www.aliyun.com/product/oss ，然后直接放链接
 		// 2. 使用: https://github.com/coobird/thumbnailator 或者其他工具压缩图片
 		
-		String imagePath = "D:\\Desktop\\st\\"+ "电脑.jpg";
+		
+		
+		String imagePath = "D:\\Desktop\\st\\image\\"+ "电脑.jpg";
 		try (InputStream inputStream = FileUtils.openInputStream(new File(imagePath))) {
 			List<ImageDemoData> list =  ListUtils.newArrayList();
 			ImageDemoData imageDemoData = new ImageDemoData();
@@ -99,5 +105,16 @@ public class WriteExcelDataTest {
 			// 写入数据
 			EasyExcel.write(fileName, ImageDemoData.class).sheet().doWrite(list);
 		}
+	}
+	
+	
+	@Test
+	public void readExcel(){
+		String excelFilePath = "D:\\Desktop\\st\\imageWrite\\副本育才三幼资产清单（部门：小二班  ）.xlsx";
+		EasyExcel.read(excelFilePath, DemoData.class, new PageReadListener<DemoData>(dataList -> {
+			for (DemoData demoData : dataList) {
+				log.info("读取到一条数据{}", JSON.toJSONString(demoData));
+			}
+		})).sheet().doRead();
 	}
 }

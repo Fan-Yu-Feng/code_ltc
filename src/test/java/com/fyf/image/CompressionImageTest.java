@@ -6,6 +6,7 @@ import org.junit.Test;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Objects;
 
 /**
  * @author FYF
@@ -17,11 +18,12 @@ public class CompressionImageTest {
 
 	@Test
 	public void compressionImage() throws IOException {
+		File destinationDir = new File("D:\\Desktop\\st\\image");
 		
-		Thumbnails.of(new File("D:\\Desktop\\st\\image").listFiles())
-				.size(640, 480)
+		Thumbnails.of(Objects.requireNonNull(new File("D:\\Desktop\\st\\image").listFiles()))
+				.size(90, 55)
 				.outputFormat("jpg")
-				.toFiles(Rename.PREFIX_DOT_THUMBNAIL);
+				.toFiles(destinationDir,Rename.PREFIX_DOT_THUMBNAIL);
 	}
 	
 	

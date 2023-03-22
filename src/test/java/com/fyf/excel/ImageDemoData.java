@@ -1,5 +1,6 @@
-package com.dto;
+package com.fyf.excel;
 
+import com.alibaba.excel.annotation.ExcelIgnore;
 import com.alibaba.excel.annotation.ExcelProperty;
 import com.alibaba.excel.annotation.write.style.ColumnWidth;
 import com.alibaba.excel.annotation.write.style.ContentRowHeight;
@@ -35,6 +36,27 @@ public class ImageDemoData {
 	 * @since 2.1.1
 	 */
 	private URL url;
+	
+	@ExcelIgnore
+	@ExcelProperty(value = "序号", index = 0)
+	private String order = "0";
+	
+	@ExcelProperty(value = "系统名称", index = 1)
+	@ColumnWidth(value = 30)
+	private String systemName;
+	
+	@ColumnWidth(value = 30)
+	@ExcelProperty(value = "二级菜单", index = 2)
+	private String secondMenu;
+	
+	@ColumnWidth(value = 30)
+	@ExcelProperty(value = "三级菜单", index = 3)
+	private String thirdMenu;
+	
+	@ColumnWidth(value = 30)
+	@ExcelProperty(value = "操作资源", index = 4)
+	private String operateResource;
+	
 	
 	
 	/**
