@@ -37,6 +37,9 @@ public class ImageDemoData {
 	@ExcelProperty(value = "图片", index = 5)
 	private String string;
 	
+	@ExcelProperty(value = "备注", index = 6)
+	private String remark;
+	
 	/**
 	 * 根据文件导出 并设置导出的位置。
 	 *

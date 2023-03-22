@@ -1,5 +1,6 @@
 package com.fyf.excel;
 
+import cn.hutool.core.bean.BeanUtil;
 import com.alibaba.excel.EasyExcel;
 import com.alibaba.excel.enums.CellDataTypeEnum;
 import com.alibaba.excel.metadata.data.ImageData;
@@ -7,15 +8,21 @@ import com.alibaba.excel.metadata.data.WriteCellData;
 import com.alibaba.excel.read.listener.PageReadListener;
 import com.alibaba.excel.util.FileUtils;
 import com.alibaba.excel.util.ListUtils;
+import com.alibaba.excel.util.StringUtils;
 import com.alibaba.fastjson.JSON;
 import com.dto.ImageDemoData;
+import com.dto.ImageWriteData;
+import com.util.FileUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 
 import java.io.File;
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * @author FYF
@@ -40,10 +47,9 @@ public class WriteExcelDataTest {
 		// 2. 使用: https://github.com/coobird/thumbnailator 或者其他工具压缩图片
 		
 		
-		
-		String imagePath = "D:\\Desktop\\st\\image\\"+ "电脑.jpg";
+		String imagePath = "D:\\Desktop\\st\\image\\" + "电脑.jpg";
 		try (InputStream inputStream = FileUtils.openInputStream(new File(imagePath))) {
-			List<ImageDemoData> list =  ListUtils.newArrayList();
+			List<ImageDemoData> list = ListUtils.newArrayList();
 			ImageDemoData imageDemoData = new ImageDemoData();
 			list.add(imageDemoData);
 			// 放入五种类型的图片 实际使用只要选一种即可
@@ -108,12 +114,129 @@ public class WriteExcelDataTest {
 	
 	
 	@Test
-	public void readExcel(){
-		String excelFilePath = "D:\\Desktop\\st\\imageWriteExcel\\育才三幼资产清单（部门：小二班  ）.xlsx";
+	public void readExcel() {
+		String excelFilePath = "D:\\Desktop\\st\\imageWrite\\育才三幼资产清单（部门：小二班  ）.xlsx";
+		
+		readExcel(excelFilePath);
+	}
+	
+	private static List<ImageWriteData> readExcel(String excelFilePath) {
+		
+		List<ImageWriteData> list = new ArrayList<>();
+		
 		EasyExcel.read(excelFilePath, ImageDemoData.class, new PageReadListener<ImageDemoData>(dataList -> {
 			for (ImageDemoData demoData : dataList) {
-				log.info("读取到一条数据{}", JSON.toJSONString(demoData));
+				
+				ImageWriteData imageWriteData = new ImageWriteData();
+				BeanUtil.copyProperties(demoData,imageWriteData);
+				list.add(imageWriteData);
+				// log.info("读取到一条数据{}", JSON.toJSONString(demoData));
+				// 读一行写一行
+				log.info(demoData.getName());
 			}
 		})).sheet().doRead();
+		return list;
 	}
+	
+	
+	@Test
+	public void writeExcel() {
+		
+		String pre = "thumbnail.";
+		String ext = ".jpg";
+		
+		String imageDir = "D:\\Desktop\\st\\compressImage\\";
+		String excelFilePath = "D:\\Desktop\\st\\imageWrite\\育才三幼资产清单（部门：小二班  ）.xlsx";
+		String fileName = "D:\\Desktop\\st\\" + "imageWrite\\" + "excel" + ".xlsx";
+		
+		//获取所有图片名称
+		List<String> fileListName = FileUtil.getFileNameByFileDir(imageDir);
+		Set<String> fileNameSet = new HashSet<>();
+		fileNameSet.addAll(fileListName);
+		
+		// 读 Excel 获取所有行的内容
+		List<ImageWriteData> list = new ArrayList<>();
+		
+		EasyExcel.read(excelFilePath, ImageDemoData.class, new PageReadListener<ImageDemoData>(dataList -> {
+			for (ImageDemoData demoData : dataList) {
+
+				log.info("读取到一条数据{}", JSON.toJSONString(demoData));
+				// 读一行写一行
+				ImageWriteData imageWriteData = new ImageWriteData();
+				BeanUtil.copyProperties(demoData,imageWriteData);
+				list.add(imageWriteData);
+				if(StringUtils.isNotBlank(demoData.getName())){
+					String imageName = pre.concat(demoData.getName()).concat(ext);
+					
+					if(fileNameSet.contains(imageName)){
+						String imagePath = imageDir.concat(imageName);
+						
+						WriteCellData<Void> writeCellData = new WriteCellData<>();
+						imageWriteData.setWriteCellDataFile(writeCellData);
+						List<ImageData> imageDataList = new ArrayList<>();
+						ImageData imageData = new ImageData();
+						// 放入2进制图片
+						try {
+							imageData.setImage(FileUtils.readFileToByteArray(new File(imagePath)));
+						} catch (IOException e) {
+							throw new RuntimeException(e);
+						}
+						// 图片类型
+						imageData.setImageType(ImageData.ImageType.PICTURE_TYPE_PNG);
+						imageDataList.add(imageData);
+						writeCellData.setImageDataList(imageDataList);
+					}
+				}
+			}
+		})).sheet().doRead();
+		
+		
+		// 写入数据
+		EasyExcel.write(fileName, ImageWriteData.class).sheet().doWrite(list);
+	}
+	
+	
+	@Test
+	public void writeLineExcelTest() throws IOException {
+		
+		String pre = "thumbnail.";
+		
+		String fileName = "D:\\Desktop\\st\\" + "imageWrite\\" + "excel" + ".xlsx";
+		// 写一行测试
+		String imagePath = "D:\\Desktop\\st\\compressImage\\thumbnail.电脑.jpg";
+		List<ImageWriteData> list = ListUtils.newArrayList();
+		
+		ImageWriteData imageWriteData = new ImageWriteData();
+		list.add(imageWriteData);
+		imageWriteData.setOrder("1");
+		imageWriteData.setType("type");
+		imageWriteData.setName("电脑");
+		imageWriteData.setNumber("2台");
+		imageWriteData.setTypeInfo("编号：1-xyz");
+		
+		
+		WriteCellData<Void> writeCellData = new WriteCellData<>();
+		imageWriteData.setWriteCellDataFile(writeCellData);
+		
+		List<ImageData> imageDataList = new ArrayList<>();
+		ImageData imageData = new ImageData();
+		// 放入2进制图片
+		imageData.setImage(FileUtils.readFileToByteArray(new File(imagePath)));
+		// 图片类型
+		imageData.setImageType(ImageData.ImageType.PICTURE_TYPE_PNG);
+		
+		
+		imageDataList.add(imageData);
+		writeCellData.setImageDataList(imageDataList);
+		
+		
+		// 写入数据
+		EasyExcel.write(fileName, ImageWriteData.class).sheet().doWrite(list);
+	}
+	
+	
+	
+	
+	
+	
 }

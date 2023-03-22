@@ -26,7 +26,7 @@ public class FileUtil {
 		assert tempList != null;
 		for (File value : tempList) {
 			if (value.isFile()) {
-				files.add(value.toString());
+				files.add(value.getName());
 			}
 			// if (value.isDirectory()) {
 			// }
