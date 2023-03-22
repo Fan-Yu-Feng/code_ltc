@@ -18,10 +18,10 @@ public class CompressionImageTest {
 
 	@Test
 	public void compressionImage() throws IOException {
-		File destinationDir = new File("D:\\Desktop\\st\\image");
+		File destinationDir = new File("D:\\Desktop\\st\\compressImage");
 		
 		Thumbnails.of(Objects.requireNonNull(new File("D:\\Desktop\\st\\image").listFiles()))
-				.size(90, 55)
+				.size(805, 925)
 				.outputFormat("jpg")
 				.toFiles(destinationDir,Rename.PREFIX_DOT_THUMBNAIL);
 	}

@@ -14,7 +14,6 @@ import org.junit.Test;
 
 import java.io.File;
 import java.io.InputStream;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,20 +47,20 @@ public class WriteExcelDataTest {
 			ImageDemoData imageDemoData = new ImageDemoData();
 			list.add(imageDemoData);
 			// 放入五种类型的图片 实际使用只要选一种即可
-			imageDemoData.setByteArray(FileUtils.readFileToByteArray(new File(imagePath)));
-			imageDemoData.setFile(new File(imagePath));
-			imageDemoData.setString(imagePath);
-			imageDemoData.setInputStream(inputStream);
-			imageDemoData.setUrl(new URL(
-					"https://raw.githubusercontent.com/alibaba/easyexcel/master/src/test/resources/converter/img.jpg"));
-			
+			// imageDemoData.setByteArray(FileUtils.readFileToByteArray(new File(imagePath)));
+			// imageDemoData.setFile(new File(imagePath));
+			// imageDemoData.setString(imagePath);
+			// imageDemoData.setInputStream(inputStream);
+			// imageDemoData.setUrl(new URL(
+			// 		"https://raw.githubusercontent.com/alibaba/easyexcel/master/src/test/resources/converter/img.jpg"));
+			//
 			// 这里演示
 			// 需要额外放入文字
 			// 而且需要放入2个图片
 			// 第一个图片靠左
 			// 第二个靠右 而且要额外的占用他后面的单元格
 			WriteCellData<Void> writeCellData = new WriteCellData<>();
-			imageDemoData.setWriteCellDataFile(writeCellData);
+			// imageDemoData.setWriteCellDataFile(writeCellData);
 			// 这里可以设置为 EMPTY 则代表不需要其他数据了
 			writeCellData.setType(CellDataTypeEnum.STRING);
 			writeCellData.setStringValue("额外的放一些文字");
@@ -110,9 +109,9 @@ public class WriteExcelDataTest {
 	
 	@Test
 	public void readExcel(){
-		String excelFilePath = "D:\\Desktop\\st\\imageWrite\\副本育才三幼资产清单（部门：小二班  ）.xlsx";
-		EasyExcel.read(excelFilePath, DemoData.class, new PageReadListener<DemoData>(dataList -> {
-			for (DemoData demoData : dataList) {
+		String excelFilePath = "D:\\Desktop\\st\\imageWriteExcel\\育才三幼资产清单（部门：小二班  ）.xlsx";
+		EasyExcel.read(excelFilePath, ImageDemoData.class, new PageReadListener<ImageDemoData>(dataList -> {
+			for (ImageDemoData demoData : dataList) {
 				log.info("读取到一条数据{}", JSON.toJSONString(demoData));
 			}
 		})).sheet().doRead();

@@ -3,6 +3,7 @@ package com.dto;
 import com.alibaba.excel.annotation.ExcelProperty;
 import com.alibaba.excel.annotation.write.style.ColumnWidth;
 import com.alibaba.excel.annotation.write.style.ContentRowHeight;
+import com.alibaba.excel.metadata.data.WriteCellData;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -14,8 +15,7 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode
 @ContentRowHeight(100)
 @ColumnWidth(100 / 8)
-public class ImageDemoData {
-	
+public class ImageWriteData {
 	@ExcelProperty(value = "序号", index = 0)
 	@ColumnWidth(value = 30)
 	private String order;
@@ -42,6 +42,6 @@ public class ImageDemoData {
 	 *
 	 * @since 3.0.0-beta1
 	 */
-	// private WriteCellData<Void> writeCellDataFile;
+	private WriteCellData<Void> writeCellDataFile;
 	
 }
