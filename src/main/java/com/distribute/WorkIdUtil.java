@@ -13,16 +13,6 @@ public class WorkIdUtil {
 	public static long getSnowId(){
 		return SNOW_INSTANCE.nextId();
 	}
-	public static String getInnerOrderNo(){
-		long snowId = SNOW_INSTANCE.nextId();
-		
-		Random random = new Random();
-		int i = random.nextInt(100);
-		String s = String.valueOf(i);
-		String s1 = String.valueOf(snowId).substring(2);
-		return s.concat(s1);
-	}
-	
 	
 	public static Long getLongInnerOrderNo(){
 		long snowId = getSnowId();

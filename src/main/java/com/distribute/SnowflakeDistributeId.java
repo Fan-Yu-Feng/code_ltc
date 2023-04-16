@@ -1,13 +1,10 @@
 package com.distribute;
 
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
 
 import java.lang.management.ManagementFactory;
-import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
-import java.util.Enumeration;
 
 /**
  * 链接：<a href="https://pdai.tech/md/algorithm/alg-domain-id-snowflake.html">...</a>
@@ -151,7 +148,7 @@ public class SnowflakeDistributeId {
 	}
 	/**
 	 * <p>
-	 * 数据标识id部分
+	 * 数据标识id部分 通过 ip 地址取余获得
 	 * </p>
 	 */
 	protected static long getDatacenterId(long maxDatacenterId) {
@@ -239,55 +236,5 @@ public class SnowflakeDistributeId {
 	}
 	
 	
-	public static void main(String[] args) {
-		
-		final long workerIdBits = 5L;
-		
-		
-		String localhostIp = getLocalhostIp();
-		
-		assert localhostIp != null;
-		String[] split = localhostIp.split("\\.");
-		
-		long ipWorkId = 0L;
-		if (split[3] != null && StringUtils.isNotEmpty(split[3])) {
-			
-			ipWorkId = Long.parseLong(split[3]) & ((1L << workerIdBits) - 1);
-			log.info("aLong = " + ipWorkId);
-		}
-		
-		log.info("localhostIp = " + localhostIp);
-		
-		
-		SnowflakeDistributeId idWorker = new SnowflakeDistributeId();
-		
-		for (int i = 0; i < 1000; i++) {
-			long id = idWorker.nextId();
-			
-			log.info(String.valueOf(id));
-		}
-		
-	}
-	
-	public static String getLocalhostIp() {
-		try {
-			Enumeration<NetworkInterface> allNetInterfaces = NetworkInterface.getNetworkInterfaces();
-			while (allNetInterfaces.hasMoreElements()) {
-				NetworkInterface netInterface = allNetInterfaces.nextElement();
-				Enumeration<InetAddress> addresses = netInterface.getInetAddresses();
-				while (addresses.hasMoreElements()) {
-					InetAddress ip = addresses.nextElement();
-					if (ip instanceof Inet4Address
-							    && !ip.isLoopbackAddress() //loopback地址即本机地址，IPv4的loopback范围是127.0.0.0 ~ 127.255.255.255
-							    && !ip.getHostAddress().contains(":")) {
-						return ip.getHostAddress();
-					}
-				}
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return null;
-	}
 	
 }
