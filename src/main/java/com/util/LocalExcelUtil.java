@@ -5,11 +5,15 @@ import cn.hutool.poi.excel.ExcelReader;
 import cn.hutool.poi.excel.ExcelUtil;
 import cn.hutool.poi.excel.ExcelWriter;
 import cn.hutool.poi.excel.sax.handler.RowHandler;
+import com.alibaba.excel.EasyExcel;
+import com.alibaba.excel.read.listener.PageReadListener;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
 import org.apache.poi.ss.usermodel.CellStyle;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CountDownLatch;
@@ -195,12 +199,22 @@ public class LocalExcelUtil {
 		
 		// 通过工具类创建writer
 		ExcelWriter writer = ExcelUtil.getWriter(excelPath);
-// 合并单元格后的标题行，使用默认标题样式
+		// 合并单元格后的标题行，使用默认标题样式
 		writer.merge(100 - 1, "一班成绩单");
-// 一次性写出内容，使用默认样式，强制输出标题
-// 		writer.write(123, true);
-// 关闭writer，释放内存
+		// 一次性写出内容，使用默认样式，强制输出标题
+		// 		writer.write(123, true);
+		// 关闭writer，释放内存
 		writer.close();
+	}
+	
+	public static <T> List<T> readExcel(String excelFilePath, T obj) {
+		
+		List<T> list = new ArrayList<>();
+		
+		EasyExcel.read(excelFilePath, obj.getClass(), new PageReadListener<>(dataList -> {
+			list.addAll((Collection<? extends T>) dataList);
+		})).sheet().doRead();
+		return list;
 	}
 	
 	
