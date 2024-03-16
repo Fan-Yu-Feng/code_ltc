@@ -1,6 +1,6 @@
 package com.fyf.ltc.lc_1300;
 
-import lombok.var;
+
 
 import java.util.ArrayList;
 import java.util.List;
